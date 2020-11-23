@@ -9,9 +9,9 @@ const player = {
     name,
     score,
     items,
-    getCurrentScore() {return score},
-    addPoints(points) {score += points},
-    deductPoints(points) {score -= points},
+    getCurrentScore() {return this.score},
+    addPoints(points) {this.score += points},
+    deductPoints(points) {this.score -= points},
 };
 
 // Define the Product class - write the Constructor function for Product class here
@@ -30,12 +30,16 @@ const dateDiff = (date1, date2) => {
 };
 
 // Here, use Object.defineProperty to create property - daysToExpire
-Object.defineProperty(Product, 'daysToExpire', {
-     get() {return daysToExpire}
+Object.defineProperty(Product.prototype, 'daysToExpire', {
+    get() {
+        return dateDiff(this.expiryDate, new Date());
     }
-);
+});
 
 // Add method getDetails to Product here
+Object.defineProperty(Product.prototype, 'getDetails', () => {
+    return `Product Name: ${this.name} , Product Price: ${this.price}`;
+})
 
 // Define the MagicProduct class here
 
